@@ -1,0 +1,163 @@
+<head>
+<title >Accessible Q-E range of AMATERAS(BL14) ver 0.2</title>
+<link rel="stylesheet" type="text/css" href="./common.css">
+<script type="text/javascript" src="./draw.js?20191110"></script>
+</head>
+<body onload="draw()">
+    <div class="fullbox">
+    <table class="header_table">
+        <tr>
+            <td ><font class="mytitle">Accessible Q-E range of AMATERAS(BL14)</font> <font color="white">ver 0.2</font></td>
+            <td class="menu_item"><a href="#sec_TOF">TOF diagram</a></td>
+            <td class="menu_item"><a href="#sec_constE">Constant-E cuts</a></td>
+            <td class="menu_item"><a href="#sec_definitions">Definitions</a></td>
+            <td class="dummyText">....</td>
+        </tr>
+    </table>
+    </div>
+<br />
+
+<div class="mainbody">
+
+<!--div class="dummy_space1" id="sec_lattice">-</div>
+<div class="dummy_space2">-</div>
+        
+<div class="section_01">Reciprocal lattice space</div>
+<table>
+    <tr>
+        <td>
+        <canvas id="MyCanvas" width="630" height="202"></canvas><br />
+        <input type="range" value="1" min="1" max="10" step="0.1" id="slide" oninput="draw()">
+        </td>
+        <td>
+        </td>
+    </tr>
+</table-->
+
+<div class="dummy_space1" id="sec_TOF">-</div>
+<div class="dummy_space2">-</div>
+
+<div class="section_01">TOF diagram</div>
+<table>
+        <tr>
+            <td>
+            <canvas id="CanvasTOF" width="600" height="400"></canvas><br />
+            </td>
+            <td>
+                <!--Chopper face at t=0 :
+                <select id="chopperFace">
+                    <option value="1">Front</option>
+                    <option value="0">Back</option>
+                </select> <br /-->
+                Monochro chopper (effective) freq. :
+                <select id="freq">
+                    <option value="75">75 Hz (FDC1:300Hz-FDC2:300Hz)</option>
+                    <option value="150">150 Hz(FDC1:0Hz-FDC2:150Hz)</option>
+                </select> <br />
+                Target <i>E</i><sub>i</sub> : <input type="text" size="5" id="targetEi" value="20"> meV <br />
+                Upper limit of <i>E</i><sub>i</sub> : <input type="text" size="5" id="upperLimitEi" value="80"> meV <br />
+                <input type="button" value="   set   " onclick="draw()"/><br />
+                <br />
+                <i>E</i><sub>i</sub> number offset : <input type="text" size="5" id="Ei_Num_ofst" value="0"> (for plotting)<br />
+                phase offset : <input type="text" size="8" id="offset" value="0"> ms<br />
+                <i>E</i><sub>i(1)</sub>:<input size="10" id="E1"> meV <font color="#FF0000" id="isE1Optimum"></font> <br />
+                <i>E</i><sub>i(2)</sub>:<input size="10" id="E2"> meV <font color="#FF0000" id="isE2Optimum"></font><br />
+                <i>E</i><sub>i(3)</sub>:<input size="10" id="E3"> meV <font color="#FF0000" id="isE3Optimum"></font><br />
+                <i>E</i><sub>i(4)</sub>:<input size="10" id="E4"> meV <font color="#FF0000" id="isE4Optimum"></font><br />
+                <i>E</i><sub>i(5)</sub>:<input size="10" id="E5"> meV <font color="#FF0000" id="isE5Optimum"></font>
+            </td>
+        </tr>
+    </table>
+
+<div class="dummy_space1" id="sec_constE">-</div>
+<div class="dummy_space2">-</div>
+
+<div class="section_01">Constant-<i>E</i> cuts</div>
+<table>
+    <tr>
+        <td width="380">
+            <b>Sample</b>
+        </td>
+        <td width="300">
+            <b><i>q</i>-vectors</b>
+        </td>
+        <td>
+            <b>Detector Banks (two-theta range)</b><br />
+        </td>
+    </tr>
+    <tr>
+        <td valign="top">
+            <i>a</i>* : <input type="text" size="6" id="a_star" value="1.5"> A<sup>-1</sup><br />
+            <i>b</i>* : <input type="text" size="6" id="b_star" value="1.5"> A<sup>-1</sup><br />
+            angle between <i>a</i>* and <i>b</i>* : <input type="text" size="6" id="gamma" value="90"> deg.<br />
+            <input type="button" value="   set   " onclick="draw()"/><br />
+        </td>
+        <td valign="top">
+                <i>q</i><sub>1</sub> : <i>h</i> <input type="text" size="6" id="qh1" value="0">, <i>k</i> <input type="text" size="6" id="qk1" value="0"><br />
+                <i>q</i><sub>2</sub> : <i>h</i> <input type="text" size="6" id="qh2" value="0">, <i>k</i> <input type="text" size="6" id="qk2" value="0"><br />
+                <i>q</i><sub>3</sub> : <i>h</i> <input type="text" size="6" id="qh3" value="0">, <i>k</i> <input type="text" size="6" id="qk3" value="0"><br />
+                <input type="button" value="   set   " onclick="draw()"/><br />
+        </td>
+        <td>
+            Det11 : <input type="text" size="6" id="D11_tth_min" value="3.25"> -  <input type="text" size="6" id="D11_tth_max" value="8.42"><br />
+            Det10 : <input type="text" size="6" id="D10_tth_min" value="9.38"> -  <input type="text" size="6" id="D10_tth_max" value="21.22"><br />
+            Det9 : <input type="text" size="6" id="D9_tth_min" value="22.18"> -  <input type="text" size="6" id="D9_tth_max" value="34.02"><br />
+            Det8 : <input type="text" size="6" id="D8_tth_min" value="34.98"> -  <input type="text" size="6" id="D8_tth_max" value="46.82"><br />
+            Det7 : <input type="text" size="6" id="D7_tth_min" value="48.18"> -  <input type="text" size="6" id="D7_tth_max" value="60.02"><br />
+            Det6 : <input type="text" size="6" id="D6_tth_min" value="60.98"> -  <input type="text" size="6" id="D6_tth_max" value="72.82"><br />
+            Det5 : <input type="text" size="6" id="D5_tth_min" value="73.78"> -  <input type="text" size="6" id="D5_tth_max" value="85.62"><br />
+            Det4 : <input type="text" size="6" id="D4_tth_min" value="86.58"> -  <input type="text" size="6" id="D4_tth_max" value="98.41"><br />
+            Det3 : <input type="text" size="6" id="D3_tth_min" value="99.38"> -  <input type="text" size="6" id="D3_tth_max" value="111.22"><br />
+            Det2 : <input type="text" size="6" id="D2_tth_min" value="112.18"> -  <input type="text" size="6" id="D2_tth_max" value="118.10"><br />
+        </td>
+    </tr>
+</table>
+Omega angle : from <input type="text" size="5" id="omega1" value="0"> to <input type="text" size="5" id="omega2" value="50"> degs <input type="button" value="   set   " onclick="draw()"/><br />
+<br />
+
+<table cellpadding="5">
+    <tr>
+        <td class="box">
+            <div class="section_02"><i>E</i><sub>i(1)</sub> = <font id="E1_calc"></font> meV</div>
+            Energy transfer : <input type="range" value="0" min="-0.4" max="0.9" step="0.01" id="frac_hbw1" oninput="draw()"><input size="10" value="0" id="hbw1"> meV<br />
+            <canvas id="CanvasQxy1" width="500" height="500"></canvas>
+        </td>
+        <td class="box">
+            <div class="section_02"><i>E</i><sub>i(2)</sub> = <font id="E2_calc"></font> meV</div>
+            Energy transfer : <input type="range" value="0" min="-0.4" max="0.9" step="0.01" id="frac_hbw2" oninput="draw()"><input size="10" value="0" id="hbw2"> meV<br />
+            <canvas id="CanvasQxy2" width="500" height="500"></canvas>
+        </td>
+        </tr>
+        <tr>
+            <td class="box">
+                <div class="section_02"><i>E</i><sub>i(3)</sub> = <font id="E3_calc"></font> meV</div>
+                Energy transfer : <input type="range" value="0" min="-0.4" max="0.9" step="0.01" id="frac_hbw3" oninput="draw()"><input size="10" value="0" id="hbw3"> meV<br />
+                <canvas id="CanvasQxy3" width="500" height="500"></canvas>
+            </td>
+            <td class="box">
+                <div class="section_02"><i>E</i><sub>i(4)</sub> = <font id="E4_calc"></font> meV</div>
+                Energy transfer : <input type="range" value="0" min="-0.4" max="0.9" step="0.01" id="frac_hbw4" oninput="draw()"><input size="10" value="0" id="hbw4"> meV<br />
+                <canvas id="CanvasQxy4" width="500" height="500"></canvas>
+            </td>
+        </tr>
+        <tr>
+            <td class="box">
+                <div class="section_02"><i>E</i><sub>i(5)</sub> = <font id="E5_calc"></font> meV</div>
+                Energy transfer : <input type="range" value="0" min="-0.4" max="0.9" step="0.01" id="frac_hbw5" oninput="draw()"><input size="10" value="0" id="hbw5"> meV<br />
+                <canvas id="CanvasQxy5" width="500" height="500"></canvas>            </td>
+            <td></td>
+        </tr>
+        </table>
+<br />
+
+
+<div class="dummy_space1" id="sec_definitions">-</div>
+<div class="dummy_space2">-</div>
+
+<div class="section_01">Definitions</div>
+<img src="IMG_AMATERAS_v3.png">
+
+
+<div class="footer"> Version 0.2 by T. Nakajima, 2019.</div>
+</div> <!--end of mainbody-->
+</body>
