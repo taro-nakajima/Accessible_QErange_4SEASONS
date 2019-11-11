@@ -1,5 +1,5 @@
-//JavaScript code for calculating accessible Q-E ranges for AMATERAS
-// programed by T. Nakajima (ISSP-NSL) Oct. 20, 2019.
+//JavaScript code for calculating accessible Q-E ranges for 4SEASONS
+// programed by T. Nakajima (ISSP-NSL) Nov. 11, 2019.
 var Ei_numMax=5;
 var Ei = new Array(Ei_numMax);
 var decimal_digit = 1000;
@@ -19,15 +19,15 @@ function draw_TOF(){
     var marginX = 50;
     var marginY = 20;
 
-    var TOFscale = 6.0;    // ms to pixel
+    var TOFscale = 10.0;    // ms to pixel
     var Lscale=10.0;        // meter to pixel
 
-    var Ltotal_R = 34.0;      // Real source to detector (m)
-    var Lsc_R = 28.4;        // Real sample chopper distance  (m)
-    var L1_R = 30.0;          // Real source to sample distance (m)
-    var TOF_len_R = 80;       // Real TOF max (ms)
+    var Ltotal_R = 18.0+2.5;      // Real source to detector (m)
+    var Lsc_R = 18.0-1.7;        // Real sample chopper distance  (m)
+    var L1_R = 18.0;          // Real source to sample distance (m)
+    var TOF_len_R = 40;       // Real TOF max (ms)
     var TOFconst = 2.286;       // TOF at 1 m is 2.286/sqrt(E)
-    var upperLimitEi = 80;    // upper limit of Ei 8eV
+    var upperLimitEi = 300;    // upper limit of Ei 300 meV
 
     var Ltotal=Ltotal_R*Lscale;
     var Lsc = Lsc_R*Lscale;
@@ -48,7 +48,7 @@ function draw_TOF(){
 
 
     var freq = Number(document.getElementById('freq').value);
-    var ChopPeriod_R = 1.0/freq*1000.0;
+    var ChopPeriod_R = 1.0/freq*1000.0/2.0;     // factor 1/2 is necessary for Fermi chopper
     var ChopPeriod = ChopPeriod_R*TOFscale;
     var ChopRept = TOF_len_R/ChopPeriod_R;
 
@@ -112,12 +112,12 @@ function draw_TOF(){
 
     // x ticks
     context2.font = " 10px sans-serif";
-    for (var i=0;i<9;i+=1){
+    for (var i=0;i<=4;i+=1){
         context2.beginPath();
-        context2.moveTo(marginX+TOF_len/8*i, marginY+Ltotal);
-        context2.lineTo(marginX+TOF_len/8*i, marginY+Ltotal-TickL);
+        context2.moveTo(marginX+TOF_len/4*i, marginY+Ltotal);
+        context2.lineTo(marginX+TOF_len/4*i, marginY+Ltotal-TickL);
         context2.stroke();
-        context2.fillText(i*10, marginX+TOF_len/8*i-TextSize/2, marginY+Ltotal+TextSize*1.5);
+        context2.fillText(i*10, marginX+TOF_len/4*i-TextSize/2, marginY+Ltotal+TextSize*1.5);
     }
 
     // x label
@@ -231,30 +231,34 @@ function draw_Qxy(){
     qh[2] = Number(document.getElementById('qh3').value);
     qk[2] = Number(document.getElementById('qk3').value);
 
-    var DetBankNum = 10;
+    var DetBankNum = 12;
 
     var tth_Max = new Array(DetBankNum);
     var tth_Min = new Array(DetBankNum);
-    tth_Max[0] = Number(document.getElementById('D11_tth_max').value);
-    tth_Min[0] = Number(document.getElementById('D11_tth_min').value);
-    tth_Max[1] = Number(document.getElementById('D10_tth_max').value);
-    tth_Min[1] = Number(document.getElementById('D10_tth_min').value);
-    tth_Max[2] = Number(document.getElementById('D9_tth_max').value);
-    tth_Min[2] = Number(document.getElementById('D9_tth_min').value);
-    tth_Max[3] = Number(document.getElementById('D8_tth_max').value);
-    tth_Min[3] = Number(document.getElementById('D8_tth_min').value);
-    tth_Max[4] = Number(document.getElementById('D7_tth_max').value);
-    tth_Min[4] = Number(document.getElementById('D7_tth_min').value);
-    tth_Max[5] = Number(document.getElementById('D6_tth_max').value);
-    tth_Min[5] = Number(document.getElementById('D6_tth_min').value);
+    tth_Max[0] = Number(document.getElementById('D0_tth_max').value);
+    tth_Min[0] = Number(document.getElementById('D0_tth_min').value);
+    tth_Max[1] = Number(document.getElementById('D1_tth_max').value);
+    tth_Min[1] = Number(document.getElementById('D1_tth_min').value);
+    tth_Max[2] = Number(document.getElementById('D2a_tth_max').value);
+    tth_Min[2] = Number(document.getElementById('D2a_tth_min').value);
+    tth_Max[3] = Number(document.getElementById('D2b_tth_max').value);
+    tth_Min[3] = Number(document.getElementById('D2b_tth_min').value);
+    tth_Max[4] = Number(document.getElementById('D3_tth_max').value);
+    tth_Min[4] = Number(document.getElementById('D3_tth_min').value);
+    tth_Max[5] = Number(document.getElementById('D4_tth_max').value);
+    tth_Min[5] = Number(document.getElementById('D4_tth_min').value);
     tth_Max[6] = Number(document.getElementById('D5_tth_max').value);
     tth_Min[6] = Number(document.getElementById('D5_tth_min').value);
-    tth_Max[7] = Number(document.getElementById('D4_tth_max').value);
-    tth_Min[7] = Number(document.getElementById('D4_tth_min').value);
-    tth_Max[8] = Number(document.getElementById('D3_tth_max').value);
-    tth_Min[8] = Number(document.getElementById('D3_tth_min').value);
-    tth_Max[9] = Number(document.getElementById('D2_tth_max').value);
-    tth_Min[9] = Number(document.getElementById('D2_tth_min').value);
+    tth_Max[7] = Number(document.getElementById('D6_tth_max').value);
+    tth_Min[7] = Number(document.getElementById('D6_tth_min').value);
+    tth_Max[8] = Number(document.getElementById('D7_tth_max').value);
+    tth_Min[8] = Number(document.getElementById('D7_tth_min').value);
+    tth_Max[9] = Number(document.getElementById('D8_tth_max').value);
+    tth_Min[9] = Number(document.getElementById('D8_tth_min').value);
+    tth_Max[10] = Number(document.getElementById('D9_tth_max').value);
+    tth_Min[10] = Number(document.getElementById('D9_tth_min').value);
+    tth_Max[11] = Number(document.getElementById('D10_tth_max').value);
+    tth_Min[11] = Number(document.getElementById('D10_tth_min').value);
 
 
     var radius = 3; // radius for each reciprocal lattice point

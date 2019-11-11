@@ -1,5 +1,5 @@
 <head>
-<title >Accessible Q-E range of AMATERAS(BL14) ver 0.2</title>
+<title >Accessible Q-E range of 4SEASONS(BL01) ver 0.1</title>
 <link rel="stylesheet" type="text/css" href="./common.css">
 <script type="text/javascript" src="./draw.js?20191110"></script>
 </head>
@@ -7,7 +7,7 @@
     <div class="fullbox">
     <table class="header_table">
         <tr>
-            <td ><font class="mytitle">Accessible Q-E range of AMATERAS(BL14)</font> <font color="white">ver 0.2</font></td>
+            <td ><font class="mytitle">Accessible Q-E range of 4SEASONS(BL01)</font> <font color="white">ver 0.1</font></td>
             <td class="menu_item"><a href="#sec_TOF">TOF diagram</a></td>
             <td class="menu_item"><a href="#sec_constE">Constant-E cuts</a></td>
             <td class="menu_item"><a href="#sec_definitions">Definitions</a></td>
@@ -41,7 +41,7 @@
 <table>
         <tr>
             <td>
-            <canvas id="CanvasTOF" width="600" height="400"></canvas><br />
+            <canvas id="CanvasTOF" width="500" height="300"></canvas><br />
             </td>
             <td>
                 <!--Chopper face at t=0 :
@@ -49,22 +49,30 @@
                     <option value="1">Front</option>
                     <option value="0">Back</option>
                 </select> <br /-->
-                Monochro chopper (effective) freq. :
+                Fermi chopper freq. :
                 <select id="freq">
-                    <option value="75">75 Hz (FDC1:300Hz-FDC2:300Hz)</option>
-                    <option value="150">150 Hz(FDC1:0Hz-FDC2:150Hz)</option>
+                    <option value="50">50 Hz</option>
+                    <option value="100" selected>100 Hz</option>
+                    <option value="150">150 Hz</option>
+                    <option value="200">200 Hz</option>
+                    <option value="250">250 Hz</option>
+                    <option value="300">300 Hz</option>
+                    <option value="350">350 Hz</option>
+                    <option value="400">400 Hz</option>
+                    <option value="500">500 Hz</option>
+                    <option value="600">600 Hz</option>
                 </select> <br />
                 Target <i>E</i><sub>i</sub> : <input type="text" size="5" id="targetEi" value="20"> meV <br />
-                Upper limit of <i>E</i><sub>i</sub> : <input type="text" size="5" id="upperLimitEi" value="80"> meV <br />
+                Upper limit of <i>E</i><sub>i</sub> : <input type="text" size="5" id="upperLimitEi" value="300"> meV <br />
                 <input type="button" value="   set   " onclick="draw()"/><br />
                 <br />
                 <i>E</i><sub>i</sub> number offset : <input type="text" size="5" id="Ei_Num_ofst" value="0"> (for plotting)<br />
                 phase offset : <input type="text" size="8" id="offset" value="0"> ms<br />
-                <i>E</i><sub>i(1)</sub>:<input size="10" id="E1"> meV <font color="#FF0000" id="isE1Optimum"></font> <br />
-                <i>E</i><sub>i(2)</sub>:<input size="10" id="E2"> meV <font color="#FF0000" id="isE2Optimum"></font><br />
-                <i>E</i><sub>i(3)</sub>:<input size="10" id="E3"> meV <font color="#FF0000" id="isE3Optimum"></font><br />
-                <i>E</i><sub>i(4)</sub>:<input size="10" id="E4"> meV <font color="#FF0000" id="isE4Optimum"></font><br />
-                <i>E</i><sub>i(5)</sub>:<input size="10" id="E5"> meV <font color="#FF0000" id="isE5Optimum"></font>
+                <i>E</i><sub>i(1)</sub>:<input size="10" id="E1"> meV <br />
+                <i>E</i><sub>i(2)</sub>:<input size="10" id="E2"> meV <br />
+                <i>E</i><sub>i(3)</sub>:<input size="10" id="E3"> meV <br />
+                <i>E</i><sub>i(4)</sub>:<input size="10" id="E4"> meV <br />
+                <i>E</i><sub>i(5)</sub>:<input size="10" id="E5"> meV 
             </td>
         </tr>
     </table>
@@ -99,16 +107,18 @@
                 <input type="button" value="   set   " onclick="draw()"/><br />
         </td>
         <td>
-            Det11 : <input type="text" size="6" id="D11_tth_min" value="3.25"> -  <input type="text" size="6" id="D11_tth_max" value="8.42"><br />
-            Det10 : <input type="text" size="6" id="D10_tth_min" value="9.38"> -  <input type="text" size="6" id="D10_tth_max" value="21.22"><br />
-            Det9 : <input type="text" size="6" id="D9_tth_min" value="22.18"> -  <input type="text" size="6" id="D9_tth_max" value="34.02"><br />
-            Det8 : <input type="text" size="6" id="D8_tth_min" value="34.98"> -  <input type="text" size="6" id="D8_tth_max" value="46.82"><br />
-            Det7 : <input type="text" size="6" id="D7_tth_min" value="48.18"> -  <input type="text" size="6" id="D7_tth_max" value="60.02"><br />
-            Det6 : <input type="text" size="6" id="D6_tth_min" value="60.98"> -  <input type="text" size="6" id="D6_tth_max" value="72.82"><br />
-            Det5 : <input type="text" size="6" id="D5_tth_min" value="73.78"> -  <input type="text" size="6" id="D5_tth_max" value="85.62"><br />
-            Det4 : <input type="text" size="6" id="D4_tth_min" value="86.58"> -  <input type="text" size="6" id="D4_tth_max" value="98.41"><br />
-            Det3 : <input type="text" size="6" id="D3_tth_min" value="99.38"> -  <input type="text" size="6" id="D3_tth_max" value="111.22"><br />
-            Det2 : <input type="text" size="6" id="D2_tth_min" value="112.18"> -  <input type="text" size="6" id="D2_tth_max" value="118.10"><br />
+            Det0 : <input type="text" size="8" id="D0_tth_min" value="-35.3286"> -  <input type="text" size="8" id="D0_tth_max" value="-21.4714 "><br />
+            Det1 : <input type="text" size="8" id="D1_tth_min" value="-20.1286 "> -  <input type="text" size="8" id="D1_tth_max" value="-6.2715 "><br />
+            Det2(-) : <input type="text" size="8" id="D2a_tth_min" value="-4.9287"> -  <input type="text" size="8" id="D2a_tth_max" value="-1.3655"><br />
+            Det2(+) : <input type="text" size="8" id="D2b_tth_min" value="0.4703"> -  <input type="text" size="8" id="D2b_tth_max" value="8.9287"><br />
+            Det3 : <input type="text" size="8" id="D3_tth_min" value="10.2714 "> -  <input type="text" size="8" id="D3_tth_max" value="24.1286"><br />
+            Det4 : <input type="text" size="8" id="D4_tth_min" value="25.4714"> -  <input type="text" size="8" id="D4_tth_max" value="39.3286"><br />
+            Det5 : <input type="text" size="8" id="D5_tth_min" value="40.6714"> -  <input type="text" size="8" id="D5_tth_max" value="54.5286"><br />
+            Det6 : <input type="text" size="8" id="D6_tth_min" value="55.8714"> -  <input type="text" size="8" id="D6_tth_max" value="69.7286"><br />
+            Det7 : <input type="text" size="8" id="D7_tth_min" value="71.0714"> -  <input type="text" size="8" id="D7_tth_max" value="84.9286"><br />
+            Det8 : <input type="text" size="8" id="D8_tth_min" value="86.2714"> -  <input type="text" size="8" id="D8_tth_max" value="100.1286"><br />
+            Det9 : <input type="text" size="8" id="D9_tth_min" value="101.4714"> -  <input type="text" size="8" id="D9_tth_max" value="115.3286"><br />
+            Det10 : <input type="text" size="8" id="D10_tth_min" value="116.6714"> -  <input type="text" size="8" id="D10_tth_max" value="130.0855"><br />
         </td>
     </tr>
 </table>
@@ -155,9 +165,9 @@ Omega angle : from <input type="text" size="5" id="omega1" value="0"> to <input 
 <div class="dummy_space2">-</div>
 
 <div class="section_01">Definitions</div>
-<img src="IMG_AMATERAS_v3.png">
+<img src="IMG_4SEASONS.png">
 
 
-<div class="footer"> Version 0.2 by T. Nakajima, 2019.</div>
+<div class="footer"> Version 0.1 by T. Nakajima, 2019.</div>
 </div> <!--end of mainbody-->
 </body>

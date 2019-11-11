@@ -27,13 +27,13 @@ body {
 	font-family: "Yu Gothic", sans-serif;
 	height: auto;
 	position: fixed;
-	background-color: rgb(40, 40, 100);
+	background-color: rgb(20, 60, 20);
 	margin: 0px 0px 0px 0px;
 	padding: 15px 10px 15px 20px;
 }
 
 .dummyText{
-	color: rgb(40, 40, 100);
+	color: rgb(20, 60, 20);
 }
 
 .mytitle{
