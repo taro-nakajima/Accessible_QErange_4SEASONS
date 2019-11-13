@@ -22,9 +22,9 @@ function draw_TOF(){
     var TOFscale = 10.0;    // ms to pixel
     var Lscale=10.0;        // meter to pixel
 
-    var Ltotal_R = 18.0+2.5;      // Real source to detector (m)
-    var Lsc_R = 18.0-1.7;        // Real sample chopper distance  (m)
-    var L1_R = 18.0;          // Real source to sample distance (m)
+    var Ltotal_R = 18.03+2.5;      // Real source to detector (m)
+    var Lsc_R = 18.03-1.71;        // Real sample chopper distance  (m)
+    var L1_R = 18.03;          // Real source to sample distance (m)
     var TOF_len_R = 40;       // Real TOF max (ms)
     var TOFconst = 2.286;       // TOF at 1 m is 2.286/sqrt(E)
     var upperLimitEi = 300;    // upper limit of Ei 300 meV
