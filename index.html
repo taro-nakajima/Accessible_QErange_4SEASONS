@@ -1,16 +1,16 @@
 <head>
-<title >Accessible Q-E range of 4SEASONS(BL01) ver 0.2</title>
+<title >Accessible Q-E range of 4SEASONS(BL01) ver 0.3</title>
 <link rel="stylesheet" type="text/css" href="./common.css">
-<script type="text/javascript" src="./draw.js?20191113"></script>
+<script type="text/javascript" src="./4SEASONS_QErange.js?201911131"></script>
 </head>
 <body onload="draw()">
     <div class="fullbox">
     <table class="header_table">
         <tr>
-            <td ><font class="mytitle">Accessible Q-E range of 4SEASONS(BL01)</font> <font color="white">ver 0.2</font></td>
+            <td ><font class="mytitle">Accessible Q-E range of 4SEASONS(BL01)</font> <font color="white">ver 0.3</font></td>
+            <td class="menu_item"><a href="#sec_Inst">Instrument</a></td>
             <td class="menu_item"><a href="#sec_TOF">TOF diagram</a></td>
             <td class="menu_item"><a href="#sec_constE">Constant-E cuts</a></td>
-            <td class="menu_item"><a href="#sec_definitions">Definitions</a></td>
             <td class="dummyText">....</td>
         </tr>
     </table>
@@ -19,20 +19,25 @@
 
 <div class="mainbody">
 
-<!--div class="dummy_space1" id="sec_lattice">-</div>
+<div class="dummy_space1" id="sec_Inst">-</div>
 <div class="dummy_space2">-</div>
-        
-<div class="section_01">Reciprocal lattice space</div>
+<div class="section_01">Instrument</div>
 <table>
     <tr>
-        <td>
-        <canvas id="MyCanvas" width="630" height="202"></canvas><br />
-        <input type="range" value="1" min="1" max="10" step="0.1" id="slide" oninput="draw()">
+        <td align="center">
+            <img src="IMG_4SEASONS.png"><br />
+            (cited from R. Kajimoto et al. J. Phys. Soc. Jpn. <b>80</b> SB025 (2011), and modified from the original version.)
         </td>
-        <td>
+        <td valign="top">
+            L<sub>1</sub> (moderator to sample): <input type="text" size="5" id="input_L1" value="18.03"> m <br />
+            L<sub>2</sub> (sample to detector): <input type="text" size="5" id="input_L2" value="2.5"> m <br />
+            L<sub>3</sub> (monochro chopper to sample): <input type="text" size="5" id="input_L3" value="1.71"> m <br />
+            <input type="button" value="   set   " onclick="draw()"/><br />
         </td>
     </tr>
-</table-->
+</table>
+
+
 
 <div class="dummy_space1" id="sec_TOF">-</div>
 <div class="dummy_space2">-</div>
@@ -161,13 +166,8 @@ Omega angle : from <input type="text" size="5" id="omega1" value="0"> to <input 
 <br />
 
 
-<div class="dummy_space1" id="sec_definitions">-</div>
-<div class="dummy_space2">-</div>
-
-<div class="section_01">Definitions</div>
-<img src="IMG_4SEASONS.png">
 
 
-<div class="footer"> Version 0.2 by T. Nakajima, 2019.</div>
+<div class="footer"> Version 0.3 by T. Nakajima, 2019.</div>
 </div> <!--end of mainbody-->
 </body>
