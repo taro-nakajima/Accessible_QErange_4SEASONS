@@ -60,7 +60,7 @@ function draw_TOF(){
 
     var ChopOfst_R =0;      //Real chopper offset (ms)
 
-
+    // find ChopOfst_R for targetEi
     for (var tt=0;tt<=ChopRept;tt+=1){
         var t1=(tt)*ChopPeriod_R;
         var t3=(tt+1.0)*ChopPeriod_R;
@@ -71,13 +71,6 @@ function draw_TOF(){
     }
 
     var displayChopperOfst = ChopOfst_R;
-
-    if(displayChopperOfst<0){
-        displayChopperOfst += ChopPeriod_R*2.0;
-    }
-    else if(displayChopperOfst>ChopPeriod_R*2.0){
-        displayChopperOfst -= ChopPeriod_R*2.0;
-    }
 
     document.getElementById('offset').value=Math.round(displayChopperOfst*decimal_digit)/decimal_digit;
 
