@@ -32,9 +32,6 @@ body {
 	padding: 15px 10px 15px 20px;
 }
 
-.dummyText{
-	color: rgb(20, 60, 20);
-}
 
 .mytitle{
 	font-family: "Yu Gothic", sans-serif;
@@ -42,6 +39,10 @@ body {
 	color: white;
 	text-align: left;
 
+}
+
+.dummyText{
+	color: rgb(20, 60, 20);
 }
 
 .menu_item{
@@ -95,67 +96,6 @@ body {
 	color:white;
 }
 
-.section_PPMS_past{
-	font-size		: 130%;
-	line-height		: 130%;
-	border-bottom: double 3px #D0E4FC;
-	padding: 3px 0px 2px 10px;
-	margin: 5px 0 0 0;
-	width: auto;
-	_width: 100%;
-}
-
-.section_MPMS{
-	font-size		: 130%;
-	line-height		: 130%;
-	background-color: #FFCCCC;
-	padding: 3px 0px 2px 10px;
-	margin: 5px 0 0 0;
-	width: auto;
-	_width: 100%;
-}
-
-.section_MPMS_past{
-	font-size		: 130%;
-	line-height		: 130%;
-	border-bottom: double 3px #FFCCCC;
-	padding: 3px 0px 2px 10px;
-	margin: 5px 0 0 0;
-	width: auto;
-	_width: 100%;
-}
-
-.section_VSM{
-	font-size		: 130%;
-	line-height		: 130%;
-	background-color: #FF9900;
-	padding: 3px 0px 2px 10px;
-	margin: 5px 0 0 0;
-	width: auto;
-	_width: 100%;
-}
-
-.section_VSM_past{
-	font-size		: 130%;
-	line-height		: 130%;
-	border-bottom: double 3px #FF9900;
-	padding: 3px 0px 2px 10px;
-	margin: 5px 0 0 0;
-	width: auto;
-	_width: 100%;
-}
-
-.qlink{
-	font-size		: 80%;
-	line-height		: 80%;
-	padding: 3px 0px 2px 2px;
-	margin: 0 0 0 0;
-	width: auto;
-	_width: 100%;
-}
-
-
-
 .section2{
 
 
@@ -208,20 +148,37 @@ td{
 }
 
 
-A:link, A:visited{
+A:link.headerLink, A:visited.headerLink{
     color : white;
     text-decoration : none;
-    }
+}
 
-A:active{
+A:active.headerLink{
     color : white;
     text-decoration : none;
-    }
+}
 
-A:hover{
+A:hover.headerLink{
     color : #FF0000;
     text-decoration : none;
-    }
+}
+
+A:link, A:visited{
+    color : blue;
+    text-decoration : none;
+}
+
+A:active{
+    color : purple;
+    text-decoration : none;
+}
+
+A:hover{
+    color : purple;
+    text-decoration : underline;
+}
+
+
 
 
 .L{	line-height : 120% ; font-size : 120% }
