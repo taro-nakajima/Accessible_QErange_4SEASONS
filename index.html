@@ -1,16 +1,25 @@
 <head>
-<title >Accessible Q-E range of 4SEASONS(BL01) ver 0.3</title>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153566682-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153566682-4');
+</script>
+<title >Accessible Q-E range of 4SEASONS(BL01) ver 0.4</title>
 <link rel="stylesheet" type="text/css" href="./common.css">
-<script type="text/javascript" src="./4SEASONS_QErange.js?201911131"></script>
+<script type="text/javascript" src="./4SEASONS_QErange.js?20191202v2"></script>
 </head>
 <body onload="draw()">
     <div class="fullbox">
     <table class="header_table">
         <tr>
-            <td ><font class="mytitle">Accessible Q-E range of 4SEASONS(BL01)</font> <font color="white">ver 0.3</font></td>
+            <td ><font class="mytitle">Accessible Q-E range of 4SEASONS(BL01)</font> <font color="white">ver 0.4</font></td>
             <td class="menu_item"><a href="#sec_Inst" class="headerLink">Instrument</a></td>
             <td class="menu_item"><a href="#sec_TOF" class="headerLink">TOF diagram</a></td>
-            <td class="menu_item"><a href="#sec_constE" class="headerLink">Constant-E cuts</a></td>
+            <td class="menu_item"><a href="#sec_QEcuts" class="headerLink">Q-E cuts</a></td>
             <td class="dummyText">....</td>
         </tr>
     </table>
@@ -81,10 +90,10 @@
         </tr>
     </table>
 
-<div class="dummy_space1" id="sec_constE">-</div>
+<div class="dummy_space1" id="sec_QEcuts">-</div>
 <div class="dummy_space2">-</div>
 
-<div class="section_01">Constant-<i>E</i> cuts</div>
+<div class="section_01"><i>Q</i>-<i>E</i> cuts (on the equator plane)</div>
 <table>
     <tr>
         <td width="380">
@@ -129,44 +138,80 @@
 Omega angle : from <input type="text" size="5" id="omega1" value="0"> to <input type="text" size="5" id="omega2" value="50"> degs <input type="button" value="   set   " onclick="draw()"/><br />
 <br />
 
+
+<div class="section_02"><i>E</i><sub>i(1)</sub> = <font id="E1_calc"></font> meV</div>
 <table cellpadding="5">
     <tr>
-        <td class="box">
-            <div class="section_02"><i>E</i><sub>i(1)</sub> = <font id="E1_calc"></font> meV</div>
+        <td>
             Energy transfer : <input type="range" value="0" min="-0.4" max="0.9" step="0.01" id="frac_hbw1" oninput="draw()"><input size="10" value="0" id="hbw1"> meV<br />
-            <canvas id="CanvasQxy1" width="500" height="500"></canvas>
+            <canvas id="CanvasQxy1" width="500" height="500" class="box"></canvas>
         </td>
-        <td class="box">
-            <div class="section_02"><i>E</i><sub>i(2)</sub> = <font id="E2_calc"></font> meV</div>
+        <td>
+            Q-E cut from (H <input type="text" size="5" id="startH1" value="1">, K <input type="text" size="5" id="startK1" value="0">)  to  (H <input type="text" size="5" id="endH1" value="1">, K <input type="text" size="5" id="endK1" value="1">) <input type="button" value="   set   " onclick="draw()"/> <br />
+            <canvas id="CanvasQE1" width="500" height="390" class="box"></canvas>
+        </td>
+    </tr>
+</table>
+<br />
+<div class="section_02"><i>E</i><sub>i(2)</sub> = <font id="E2_calc"></font> meV</div>
+<table cellpadding="5">
+    <tr>    
+        <td>
             Energy transfer : <input type="range" value="0" min="-0.4" max="0.9" step="0.01" id="frac_hbw2" oninput="draw()"><input size="10" value="0" id="hbw2"> meV<br />
-            <canvas id="CanvasQxy2" width="500" height="500"></canvas>
+            <canvas id="CanvasQxy2" width="500" height="500" class="box"></canvas>
         </td>
-        </tr>
-        <tr>
-            <td class="box">
-                <div class="section_02"><i>E</i><sub>i(3)</sub> = <font id="E3_calc"></font> meV</div>
-                Energy transfer : <input type="range" value="0" min="-0.4" max="0.9" step="0.01" id="frac_hbw3" oninput="draw()"><input size="10" value="0" id="hbw3"> meV<br />
-                <canvas id="CanvasQxy3" width="500" height="500"></canvas>
-            </td>
-            <td class="box">
-                <div class="section_02"><i>E</i><sub>i(4)</sub> = <font id="E4_calc"></font> meV</div>
-                Energy transfer : <input type="range" value="0" min="-0.4" max="0.9" step="0.01" id="frac_hbw4" oninput="draw()"><input size="10" value="0" id="hbw4"> meV<br />
-                <canvas id="CanvasQxy4" width="500" height="500"></canvas>
-            </td>
-        </tr>
-        <tr>
-            <td class="box">
-                <div class="section_02"><i>E</i><sub>i(5)</sub> = <font id="E5_calc"></font> meV</div>
-                Energy transfer : <input type="range" value="0" min="-0.4" max="0.9" step="0.01" id="frac_hbw5" oninput="draw()"><input size="10" value="0" id="hbw5"> meV<br />
-                <canvas id="CanvasQxy5" width="500" height="500"></canvas>            </td>
-            <td></td>
-        </tr>
-        </table>
+        <td>
+            Q-E cut from (H <input type="text" size="5" id="startH2" value="1">, K <input type="text" size="5" id="startK2" value="0">)  to  (H <input type="text" size="5" id="endH2" value="1">, K <input type="text" size="5" id="endK2" value="1">) <input type="button" value="   set   " onclick="draw()"/> <br />
+            <canvas id="CanvasQE2" width="500" height="390" class="box"></canvas>
+        </td>
+    </tr>
+</table>
+<br />
+<div class="section_02"><i>E</i><sub>i(3)</sub> = <font id="E3_calc"></font> meV</div>
+<table cellpadding="5">
+    <tr>    
+        <td>
+            Energy transfer : <input type="range" value="0" min="-0.4" max="0.9" step="0.01" id="frac_hbw3" oninput="draw()"><input size="10" value="0" id="hbw3"> meV<br />
+            <canvas id="CanvasQxy3" width="500" height="500" class="box"></canvas>
+        </td>
+        <td>
+            Q-E cut from (H <input type="text" size="5" id="startH3" value="1">, K <input type="text" size="5" id="startK3" value="0">) to (H <input type="text" size="5" id="endH3" value="1">, K  <input type="text" size="5" id="endK3" value="1">) <input type="button" value="   set   " onclick="draw()"/><br />
+            <canvas id="CanvasQE3" width="500" height="390" class="box"></canvas>
+        </td>
+    </tr>
+</table>
+<br />
+<div class="section_02"><i>E</i><sub>i(4)</sub> = <font id="E4_calc"></font> meV</div>
+<table cellpadding="5">
+    <tr>    
+        <td>
+            Energy transfer : <input type="range" value="0" min="-0.4" max="0.9" step="0.01" id="frac_hbw4" oninput="draw()"><input size="10" value="0" id="hbw4"> meV<br />
+            <canvas id="CanvasQxy4" width="500" height="500" class="box"></canvas>
+        </td>
+        <td>
+            Q-E cut from (H <input type="text" size="5" id="startH4" value="1">, K <input type="text" size="5" id="startK4" value="0">) to (H <input type="text" size="5" id="endH4" value="1">, K <input type="text" size="5" id="endK4" value="1">) <input type="button" value="   set   " onclick="draw()"/> <br />
+            <canvas id="CanvasQE4" width="500" height="390" class="box"></canvas>
+        </td>
+    </tr>
+</table>
+<br />
+<div class="section_02"><i>E</i><sub>i(5)</sub> = <font id="E5_calc"></font> meV</div>
+<table cellpadding="5">
+    <tr>    
+        <td>
+            Energy transfer : <input type="range" value="0" min="-0.4" max="0.9" step="0.01" id="frac_hbw5" oninput="draw()"><input size="10" value="0" id="hbw5"> meV<br />
+            <canvas id="CanvasQxy5" width="500" height="500" class="box"></canvas>
+        </td>
+        <td>
+            Q-E cut from (H <input type="text" size="5" id="startH5" value="1">, K <input type="text" size="5" id="startK5" value="0">) to (H <input type="text" size="5" id="endH5" value="1">, K <input type="text" size="5" id="endK5" value="1">) <input type="button" value="   set   " onclick="draw()"/><br />
+            <canvas id="CanvasQE5" width="500" height="390" class="box"></canvas>
+        </td>
+    </tr>
+</table>
 <br />
 
 
 
-
-<div class="footer"> Version 0.3 by T. Nakajima, 2019.</div>
+<div class="footer"> Version 0.4 by T. Nakajima, 2019.</div>
 </div> <!--end of mainbody-->
 </body>

@@ -4,14 +4,19 @@ var Ei_numMax=5;
 var Ei = new Array(Ei_numMax);
 var decimal_digit = 1000;
 
+var DetBankNum = 12;
+
+var tth_Max = new Array(DetBankNum);
+var tth_Min = new Array(DetBankNum);
+var eps=1e-6;
 
 function draw() {
 
-//    draw_RLattice();
-
     draw_TOF();
 
-    draw_Qxy()
+    draw_Qxy();
+
+    drawQELineCuts();
 }
 
 function draw_TOF(){
@@ -191,19 +196,34 @@ function draw_TOF(){
 
 function draw_Qxy(){
 
-    var canvas3 = new Array(5);
-    var context3 = new Array(5);
+    var canvas3 = new Array(Ei_numMax);
+    var context3 = new Array(Ei_numMax);
 
-    canvas3[0] = document.getElementById('CanvasQxy1');
-    context3[0] = canvas3[0].getContext('2d');
-    canvas3[1] = document.getElementById('CanvasQxy2');
-    context3[1] = canvas3[1].getContext('2d');
-    canvas3[2] = document.getElementById('CanvasQxy3');
-    context3[2] = canvas3[2].getContext('2d');
-    canvas3[3] = document.getElementById('CanvasQxy4');
-    context3[3] = canvas3[3].getContext('2d');
-    canvas3[4] = document.getElementById('CanvasQxy5');
-    context3[4] = canvas3[4].getContext('2d');
+    var radius = 3; // radius for each reciprocal lattice point
+
+    var scale0 = 1.0;       // 2ki = canvas.width/2 when scale0=1.0
+
+    var scale = new Array(Ei_numMax);
+    var ki = new Array(Ei_numMax);
+    var frac_hbw = new Array(5);
+
+    for (var j=0;j<Ei_numMax;j+=1){
+        var labelCanvasQxy='CanvasQxy'+(Math.round(j+1));
+        canvas3[j] = document.getElementById(labelCanvasQxy);
+        context3[j] = canvas3[j].getContext('2d');
+
+        ki[j]=Math.sqrt(Ei[j]/2.072);
+        scale[j] = canvas3[j].width/2.0/(2.0*ki[j])*scale0;
+
+        var labelFrac_hbw='frac_hbw'+(Math.round(j+1));
+        frac_hbw[j] = Number(document.getElementById(labelFrac_hbw).value);
+
+        var labelHbw='hbw'+(Math.round(j+1));
+        document.getElementById(labelHbw).value = Math.round(Ei[j]*frac_hbw[j]*decimal_digit)/decimal_digit;
+
+        var labelEicalc='E'+(Math.round(1+j))+'_calc';
+        document.getElementById(labelEicalc).innerHTML = Math.round(Ei[j]*decimal_digit)/decimal_digit;
+    }
 
     var omg1 = Number(document.getElementById('omega1').value);
     var omg2 = Number(document.getElementById('omega2').value);
@@ -216,14 +236,7 @@ function draw_Qxy(){
 
     var a_star = Number(document.getElementById('a_star').value);
     var b_star = Number(document.getElementById('b_star').value);
-    var gamma = Number(document.getElementById('gamma').value);
-
-    var frac_hbw = new Array(5);
-    frac_hbw[0] = Number(document.getElementById('frac_hbw1').value);
-    frac_hbw[1] = Number(document.getElementById('frac_hbw2').value);
-    frac_hbw[2] = Number(document.getElementById('frac_hbw3').value);
-    frac_hbw[3] = Number(document.getElementById('frac_hbw4').value);
-    frac_hbw[4] = Number(document.getElementById('frac_hbw5').value);
+    var gamma = Number(document.getElementById('gamma').value); 
 
     var qh = new Array(3);
     var qk = new Array(3);
@@ -234,10 +247,6 @@ function draw_Qxy(){
     qh[2] = Number(document.getElementById('qh3').value);
     qk[2] = Number(document.getElementById('qk3').value);
 
-    var DetBankNum = 12;
-
-    var tth_Max = new Array(DetBankNum);
-    var tth_Min = new Array(DetBankNum);
     tth_Max[0] = Number(document.getElementById('D0_tth_max').value);
     tth_Min[0] = Number(document.getElementById('D0_tth_min').value);
     tth_Max[1] = Number(document.getElementById('D1_tth_max').value);
@@ -263,34 +272,8 @@ function draw_Qxy(){
     tth_Max[11] = Number(document.getElementById('D10_tth_max').value);
     tth_Min[11] = Number(document.getElementById('D10_tth_min').value);
 
-
-    var radius = 3; // radius for each reciprocal lattice point
-
     var originX = canvas3[0].width/2.0;
     var originY = canvas3[0].height/2.0;
-
-
-    var scale0 = 1.0;       // 2ki = canvas.width/2 when scale0=1.0
-
-    var scale = new Array(5);
-    var ki = new Array(5);
-
-    for (var j=0;j<5;j+=1){
-        ki[j]=Math.sqrt(Ei[j]/2.072);
-        scale[j] = canvas3[0].width/2.0/(2.0*ki[j])*scale0;
-    }
-
-    document.getElementById('hbw1').value = Math.round(Ei[0]*frac_hbw[0]*decimal_digit)/decimal_digit;
-    document.getElementById('E1_calc').innerHTML = Math.round(Ei[0]*decimal_digit)/decimal_digit;
-    document.getElementById('hbw2').value = Math.round(Ei[1]*frac_hbw[1]*decimal_digit)/decimal_digit;
-    document.getElementById('E2_calc').innerHTML = Math.round(Ei[1]*decimal_digit)/decimal_digit;
-    document.getElementById('hbw3').value = Math.round(Ei[2]*frac_hbw[2]*decimal_digit)/decimal_digit;
-    document.getElementById('E3_calc').innerHTML = Math.round(Ei[2]*decimal_digit)/decimal_digit;
-    document.getElementById('hbw4').value = Math.round(Ei[3]*frac_hbw[3]*decimal_digit)/decimal_digit;
-    document.getElementById('E4_calc').innerHTML = Math.round(Ei[3]*decimal_digit)/decimal_digit;
-    document.getElementById('hbw5').value = Math.round(Ei[4]*frac_hbw[4]*decimal_digit)/decimal_digit;
-    document.getElementById('E5_calc').innerHTML = Math.round(Ei[4]*decimal_digit)/decimal_digit;
-
 
     //accessible area  :   Note that for omega > 0, sample rotation is CCW, the accessible area rotates CW
     var cosOmg1 = Math.cos(-Math.PI/180.0*omg1);
@@ -300,8 +283,7 @@ function draw_Qxy(){
     var sinOmg2 = Math.sin(-Math.PI/180.0*omg2);
 
 
-    for(var p=0;p<5;p+=1){
-
+    for(var p=0;p<Ei_numMax;p+=1){      // for loop for five Eis
 
     //refresh
     context3[p].clearRect(0, 0, canvas3[p].width, canvas3[p].height);
@@ -531,9 +513,390 @@ function draw_Qxy(){
     context3[p].font = "italic 14px sans-serif";
     context3[p].fillText("b*", originX+arrow_head_X[1]/2-font_size*1.4, originY-arrow_head_Y[1]/2-font_size );
 
+    //draw scan range
+    var labelStartH = 'startH'+(Math.round(p+1));
+    var labelStartK = 'startK'+(Math.round(p+1));
+    var startH = Number(document.getElementById(labelStartH).value);
+    var startK = Number(document.getElementById(labelStartK).value);
 
+    var scanStartPosX = originX+(startH*a_star+startK*b_star*cosGamma)*scale[p];
+    var scanStartPosY = originY-(startK*b_star*sinGamma)*scale[p];
+
+    var labelEndH = 'endH'+(Math.round(p+1));
+    var labelEndK = 'endK'+(Math.round(p+1));
+    var endH = Number(document.getElementById(labelEndH).value);
+    var endK = Number(document.getElementById(labelEndK).value);
+
+    var scanEndPosX = originX+(endH*a_star+endK*b_star*cosGamma)*scale[p];
+    var scanEndPosY = originY-(endK*b_star*sinGamma)*scale[p];
+
+    context3[p].beginPath();
+    context3[p].lineWidth=2;
+    context3[p].strokeStyle="rgb(200, 50, 250)";
+    context3[p].moveTo(scanStartPosX , scanStartPosY);
+    context3[p].lineTo(scanEndPosX , scanEndPosY);
+    context3[p].stroke();
 
     }
+
+
+}
+
+
+function drawQELineCuts() {
+
+    var canvas4 = new Array(Ei_numMax);
+    var context4 = new Array(Ei_numMax);
+
+    for(var ii=0;ii<Ei_numMax;ii+=1){
+        var canvasName='CanvasQE'+(Math.round(ii+1));
+        canvas4[ii] = document.getElementById(canvasName);
+        context4[ii] = canvas4[ii].getContext('2d');    
+    }
+
+    var omg1 = Number(document.getElementById('omega1').value);
+    var omg2 = Number(document.getElementById('omega2').value);
+
+    // to aboid zero-division
+    if((omg1==0)||(Math.abs(omg1)==90)){
+        omg1+=0.1;
+    }
+    // to aboid zero-division
+    if((omg2==0)||(Math.abs(omg2)==90)){
+        omg2+=0.1;
+    }
+   
+    var ki = new Array(Ei_numMax);
+    for (var j=0;j<Ei_numMax;j+=1){
+        ki[j]=Math.sqrt(Ei[j]/2.072);
+    }
+
+
+    var omgRept=2;
+    var cosOmg = new Array(omgRept);
+    var sinOmg = new Array(omgRept);
+
+    cosOmg[0] = Math.cos(Math.PI/180.0*omg1);
+    sinOmg[0] = Math.sin(Math.PI/180.0*omg1);
+
+    cosOmg[1] = Math.cos(Math.PI/180.0*omg2);
+    sinOmg[1] = Math.sin(Math.PI/180.0*omg2);
+
+    var a_star = Number(document.getElementById('a_star').value);
+    var b_star = Number(document.getElementById('b_star').value);
+    var gamma = Number(document.getElementById('gamma').value);
+
+    var cosGamma = Math.cos(Math.PI/180.0*gamma);
+    var sinGamma = Math.sin(Math.PI/180.0*gamma);
+
+    var OriginX = 30;
+    var OriginY = 270;
+
+
+    for(var ii=0;ii<Ei_numMax;ii+=1){   // for loop for five Eis.
+        //refresh
+        context4[ii].clearRect(0, 0, canvas4[ii].width, canvas4[ii].height);
+        context4[ii].strokeStyle = "rgb(0, 0, 0)";
+        context4[ii].lineWidth=1;
+
+        var labelStartH = 'startH'+(Math.round(ii+1));
+        var labelStartK = 'startK'+(Math.round(ii+1));
+        var startH = Number(document.getElementById(labelStartH).value);
+        var startK = Number(document.getElementById(labelStartK).value);
+        var startQx = (startH*a_star+startK*b_star*cosGamma);
+        var startQy = (startK*b_star*sinGamma);
+
+        var labelEndH = 'endH'+(Math.round(ii+1));
+        var labelEndK = 'endK'+(Math.round(ii+1));
+        var endH = Number(document.getElementById(labelEndH).value);
+        var endK = Number(document.getElementById(labelEndK).value);
+        var endQx = (endH*a_star+endK*b_star*cosGamma);
+        var endQy = (endK*b_star*sinGamma);
+
+        var fullQLength=Math.sqrt((endQx-startQx)**2.0+(endQy-startQy)**2.0);
+        var fullScanX=endQx-startQx;
+        var fullScanY=endQy-startQy;
+    
+        for(var m=0;m<DetBankNum;m+=1){
+        for(var sign =-1;sign<2;sign+=2){
+        for(var kk=0;kk<omgRept;kk+=1){
+        
+            var rotStartQx=cosOmg[kk]*startQx - sinOmg[kk]*startQy;
+            var rotStartQy=sinOmg[kk]*startQx + cosOmg[kk]*startQy;
+    
+            var rotEndQx=cosOmg[kk]*endQx - sinOmg[kk]*endQy;
+            var rotEndQy=sinOmg[kk]*endQx + cosOmg[kk]*endQy;
+    
+            var A1=(rotEndQy-rotStartQy)/(rotEndQx-rotStartQx);
+            var B1=rotEndQy-A1*rotEndQx;
+        
+            context4[ii].beginPath();
+            context4[ii].strokeStyle="rgb(0, 0, 250)";
+            context4[ii].lineWidth=1;
+    
+            var isFirstPoint=true;
+            var Ystep=canvas4[ii].height;
+            
+            for(var jj=0;jj<=Ystep;jj+=1){
+                var Ef=1.4*Ei[ii]-((1.3)*Ei[ii])/Ystep*jj;
+                var kf = Math.sqrt(Ef/2.072);
+
+                var limQxMax = 0;
+                var limQxMin = 0;
+                //limQxMin=-(Math.cos(Math.PI/180.0*tth_Min[m])*kf-1.0*ki[ii]);
+                //limQxMax=-(Math.cos(Math.PI/180.0*tth_Max[m])*kf-1.0*ki[ii]);
+                if(m<3){
+                    limQxMin=-(Math.cos(Math.PI/180.0*tth_Max[m])*kf-1.0*ki[ii]);
+                    limQxMax=-(Math.cos(Math.PI/180.0*tth_Min[m])*kf-1.0*ki[ii]);
+                }
+                else{
+                    limQxMin=-(Math.cos(Math.PI/180.0*tth_Min[m])*kf-1.0*ki[ii]);
+                    limQxMax=-(Math.cos(Math.PI/180.0*tth_Max[m])*kf-1.0*ki[ii]);
+                }
+
+                var aa=(1+1/(A1*A1));
+                var bb=-2.0*(B1/(A1**2.0)+ki[ii]/A1);
+                var cc=(B1/A1+ki[ii])**2.0-kf**2.0;
+
+                if ((bb**2.0-4.0*aa*cc)>0){
+            
+                    var QyEdge1=(-bb+sign*Math.sqrt(bb**2.0-4.0*aa*cc))/(2.0*aa);
+                    var QxEdge1=(QyEdge1-B1)/A1;
+    
+                    var drawFlag=false;
+
+                    if((QxEdge1>=limQxMin)&&(QxEdge1<=limQxMax)){
+                        if((QyEdge1>=0)&&(m>=3)){
+                            drawFlag=true;
+                        }
+                        else if((QyEdge1<=0)&&(m<3)){
+                            drawFlag=true;
+                        }
+                        else{
+                            drawFlag=false;
+                        }
+                    }
+
+                    if(drawFlag==true){
+                        var rotBackQxEdge1=cosOmg[kk]*QxEdge1+sinOmg[kk]*QyEdge1;
+                        var rotBackQyEdge1=-sinOmg[kk]*QxEdge1+cosOmg[kk]*QyEdge1;
+    
+                        var distQx=rotBackQxEdge1-startQx;
+                        var distQy=rotBackQyEdge1-startQy;
+    
+                        var productQ = fullScanX*distQx+fullScanY*distQy;
+                        
+                        if(isFirstPoint==true){
+                            context4[ii].moveTo(OriginX+productQ/fullQLength**2.0*(canvas4[ii].width-OriginX*3),canvas4[ii].height-jj*1);
+                            isFirstPoint=false;
+                        }
+                        else{
+                            context4[ii].lineTo(OriginX+productQ/fullQLength**2.0*(canvas4[ii].width-OriginX*3),canvas4[ii].height-jj*1);
+                        }    
+                    }
+                
+                }
+            }        
+            context4[ii].stroke();
+        }   // end of omgRept loop
+        }   // end of sign loop
+        }   // end of DetBankNum loop
+
+
+        for (var m=0;m<DetBankNum;m+=1){
+        for(var TTHsign =0;TTHsign<2;TTHsign+=1){
+        for(var sign =-1;sign<2;sign+=2){
+
+            context4[ii].beginPath();
+            context4[ii].strokeStyle="rgb(0, 0, 250)";
+            context4[ii].lineWidth=1;
+
+            var isFirstPoint=true;
+            var Ystep=canvas4[ii].height;
+            
+            for(var jj=0;jj<=Ystep;jj+=1){
+                var Ef=1.4*Ei[ii]-((1.3)*Ei[ii])/Ystep*jj;
+                var kf = Math.sqrt(Ef/2.072);
+                var TTH_lim = 0;
+                if (TTHsign==0){
+                    TTH_lim=tth_Min[m];
+                }
+                else{
+                    TTH_lim=tth_Max[m];
+                }
+
+                var QlimSq = (kf*Math.sin(Math.PI/180.0*TTH_lim))**2.0+(kf*Math.cos(Math.PI/180*TTH_lim)-ki[ii])**2.0;
+                var OmgZero = Math.atan2(kf*Math.sin(Math.PI/180.0*TTH_lim),-kf*Math.cos(Math.PI/180.0*TTH_lim)+ki[ii]);//0;
+                /*if(OmgZero<0){
+                    OmgZero=OmgZero+2*Math.PI;
+                }*/
+                var OmgMin = OmgZero-omg2/180.0*Math.PI;
+                var OmgMax = OmgZero-omg1/180.0*Math.PI;
+                
+                /*if(OmgMax<OmgMin){
+                    OmgMax=OmgMax+2.0*Math.PI;
+                }*/
+
+                var QyEdge1=0;
+                var QxEdge1=0;
+                var drawFlag=false;
+                if(Math.abs(startQx-endQx)<eps){
+                    if(QlimSq-startQx**2.0 > 0){
+                        QyEdge1=sign*Math.sqrt(QlimSq-startQx**2.0);
+                        QxEdge1=startQx;
+                        drawFlag=true;
+                    }
+                }
+                else if (Math.abs(startQy-endQy)<eps){
+                    if(QlimSq-startQy**2.0 >= 0){
+                        QxEdge1=sign*Math.sqrt(QlimSq-startQy**2.0);
+                        QyEdge1=startQy;
+                        drawFlag=true;
+                    }
+                }
+                else{
+                    var A1=(endQy-startQy)/(endQx-startQx);
+                    var B1=endQy-A1*endQx;
+
+                    var aa=(1+A1*A1);
+                    var bb=2.0*A1*B1;
+                    var cc=B1*B1-QlimSq;
+        
+                    if ((bb*bb-4.0*aa*cc)>0){
+                        QxEdge1=(-bb+sign*Math.sqrt(bb*bb-4.0*aa*cc))/(2.0*aa);
+                        QyEdge1=A1*QxEdge1+B1;
+                        drawFlag=true;
+                    }
+                }
+
+                if(drawFlag==true){
+                    var distQx=QxEdge1-startQx;
+                    var distQy=QyEdge1-startQy;
+    
+                    var productQ = fullScanX*distQx+fullScanY*distQy;
+    
+                    OmgTgt=Math.atan2(QyEdge1,QxEdge1);
+    
+                    /*if(OmgTgt<0){
+                        OmgTgt=OmgTgt+2.0*Math.PI;
+                    }*/
+    
+                    if((OmgTgt>=OmgMin)&&(OmgTgt<=OmgMax)){
+                        if(isFirstPoint==true){
+                            context4[ii].moveTo(OriginX+productQ/fullQLength**2.0*(canvas4[ii].width-OriginX*3),canvas4[ii].height-jj*1);
+                            isFirstPoint=false;
+                        }
+                        else{
+                            context4[ii].lineTo(OriginX+productQ/fullQLength**2.0*(canvas4[ii].width-OriginX*3),canvas4[ii].height-jj*1);
+                        }    
+                    } 
+                    else{
+                        isFirstPoint=true;
+                    }   
+                }
+                else{
+                    isFirstPoint=true;
+                }
+
+            }        
+            context4[ii].stroke();
+
+        }   // end of sign loop            
+        }   // end of TTHsign loop
+        }   // end of DetBankNum loop*/
+
+        context4[ii].beginPath();
+        context4[ii].strokeStyle="rgb(150, 150, 150)";
+        context4[ii].lineWidth=1;
+        context4[ii].moveTo(OriginX,canvas4[ii].height);
+        context4[ii].lineTo(OriginX,0);
+        context4[ii].stroke();
+
+        context4[ii].beginPath();
+        context4[ii].moveTo(OriginX,OriginY);
+        context4[ii].lineTo(OriginX+canvas4[ii].width,OriginY);
+        context4[ii].stroke();
+
+        context4[ii].beginPath();
+        context4[ii].moveTo(canvas4[ii].width-OriginX*2,canvas4[ii].height);
+        context4[ii].lineTo(canvas4[ii].width-OriginX*2,0);
+        context4[ii].stroke();
+
+        // x ticks
+        context4[ii].font = " 12px sans-serif";
+        var EthickBar=5;
+        var Espacing=20;
+        var TextSize=20;
+        if(Ei[ii]>100){
+            Espacing=20;
+            TextSize=25;
+        }
+        else if (Ei[ii]>50){
+            Espacing=10;
+            TextSize=20;
+        }
+        else if(Ei[ii]>10){
+            Espacing=2;
+            TextSize=20;
+        }
+        else if(Ei[ii]>5){
+            Espacing=1;
+            TextSize=20;
+        }
+        else {
+            Espacing=0.5;
+            TextSize=25;
+        }
+
+        var Estep= ((1.3)*Ei[ii])/canvas4[ii].height;  // energy (meV) per pixel
+
+        // tick marks for y(energy)axis
+        for (var i=-10;i<20;i+=1){
+            context4[ii].beginPath();
+            context4[ii].moveTo(OriginX, OriginY-Espacing/Estep*i);
+            context4[ii].lineTo(OriginX+EthickBar, OriginY-Espacing/Estep*i);
+            context4[ii].stroke();
+            context4[ii].fillText(i*Espacing,OriginX-TextSize, OriginY-Espacing/Estep*i);
+        }
+        //*/
+        // tick marks for x(q)axis
+        var qTickBar=10;
+        var tickSpan=(canvas4[ii].width-OriginX*3)/10;
+        for (var i=1;i<10;i+=1){
+            context4[ii].beginPath();
+            if(i==5){
+                context4[ii].moveTo(OriginX+tickSpan*i, OriginY-qTickBar);
+                context4[ii].lineTo(OriginX+tickSpan*i, OriginY+qTickBar);    
+            }
+            else{
+                context4[ii].moveTo(OriginX+tickSpan*i, OriginY-qTickBar/2);
+                context4[ii].lineTo(OriginX+tickSpan*i, OriginY+qTickBar/2);    
+            }
+            context4[ii].stroke();
+        }
+
+        var startHK = '('+startH+','+startK+')';
+        var padding1=4;
+        var lineHeight=15;
+        context4[ii].fillText(startHK,OriginX+padding1, OriginY+lineHeight);
+
+        var endHK = '('+endH+','+endK+')';
+        var padding1=4;
+        var lineHeight=15;
+        context4[ii].fillText(endHK,canvas4[ii].width-OriginX*2+padding1, OriginY+lineHeight);
+
+        //horizontal bar showing the energy transfer
+        var labelFracHbw = 'frac_hbw'+Math.round(ii+1);
+        var frac_hbw = Number(document.getElementById(labelFracHbw).value);
+        context4[ii].beginPath();
+        context4[ii].strokeStyle="rgb(255, 0, 0)";
+        context4[ii].lineWidth=1;
+        context4[ii].moveTo(0, OriginY-Ei[ii]*frac_hbw/Estep);
+        context4[ii].lineTo(canvas4[ii].width, OriginY-Ei[ii]*frac_hbw/Estep);    
+        context4[ii].stroke();
+
+
+    }   // end of for-loop for five Eis
 
 
 }
