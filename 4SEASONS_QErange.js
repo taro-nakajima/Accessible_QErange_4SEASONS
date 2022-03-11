@@ -3,12 +3,15 @@
 var Ei_numMax=5;
 var Ei = new Array(Ei_numMax);
 var decimal_digit = 1000;
+var isOptimumEi= (new Array(Ei_numMax)).fill(true);
 
 var DetBankNum = 12;
 
 var tth_Max = new Array(DetBankNum);
 var tth_Min = new Array(DetBankNum);
 var eps=1e-6;
+
+var T0_Chop_Const = 84.0/(2.0*Math.PI*300.0)*1000;     // (ms/Hz) cited from S. Itoh et al. Nuc. Inst. Methods in Phys. Research A61 86-92 (2012).
 
 function draw() {
 
